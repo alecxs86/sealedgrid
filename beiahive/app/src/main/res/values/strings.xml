@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Beia Hive</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="gobutton">GO</string>
+    <string name="iflbutton">I FEEL LUCKY</string>
+    <string name="wahint">Insert web address here</string>
 </resources>

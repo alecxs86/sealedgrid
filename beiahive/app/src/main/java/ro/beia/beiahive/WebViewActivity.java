@@ -1,4 +1,4 @@
-package com.example.beiahive;
+package ro.beia.beiahive;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,17 +7,36 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.example.beiahive.R;
 
-public class MainActivity extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity {
+
     private WebView mWebView;
+    private String address = "http://www.beia-telecom.ro/bgi";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE); //turns off the title at the top of the screen
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_web_view);
 
         //this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            // get data via the key
+            String webAddress = extras.getString(MainActivity.EXTRA_MESSAGE);
+            if (webAddress != null) {
+                // do something with the data
+                address = webAddress;
+
+                if(!address.startsWith("www.")&& !address.startsWith("http://")){
+                    address = "www."+address;
+                }
+                if(!address.startsWith("http://")){
+                    address = "http://"+address;
+                }
+            }
+        }
 
 
         mWebView = (WebView) findViewById(R.id.webView);
@@ -40,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         //webView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient()); //very important, otherwise web site will open in Android browser instead of the app
 
-        mWebView.loadUrl("http://www.beia-telecom.ro/bgi"); // load webpage
+        mWebView.loadUrl(address); // load webpage
 
     }
+
 }
